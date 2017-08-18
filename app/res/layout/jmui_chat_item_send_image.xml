@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" >
 
-        <com.guoyaohua.godseye.CircleImageView
+        <com.guoyaohua.godseye.chat.CircleImageView
             android:id="@+id/jmui_avatar_iv"
             style="@style/jmui_chat_item_sender_avatar_style" />
 
@@ -26,7 +26,7 @@
             android:maxWidth="200.0dip"
              >
 
-            <com.guoyaohua.godseye.BubbleImageView
+            <com.guoyaohua.godseye.chat.BubbleImageView
                 android:id="@+id/jmui_picture_iv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

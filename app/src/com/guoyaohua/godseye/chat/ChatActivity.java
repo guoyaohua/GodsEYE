@@ -1,4 +1,4 @@
-package com.guoyaohua.godseye;
+package com.guoyaohua.godseye.chat;
 
 import android.app.Activity;
 import android.app.Dialog;

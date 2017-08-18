@@ -18,7 +18,7 @@
         android:clickable="true"
         android:background="@drawable/jmui_list_item_bg">
 
-        <com.guoyaohua.godseye.CircleImageView
+        <com.guoyaohua.godseye.chat.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
@@ -50,7 +50,7 @@
         android:clickable="true"
         android:background="@drawable/jmui_list_item_bg">
 
-        <com.guoyaohua.godseye.CircleImageView
+        <com.guoyaohua.godseye.chat.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"

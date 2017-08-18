@@ -1,4 +1,4 @@
-package com.guoyaohua.godseye;
+package com.guoyaohua.godseye.chat;
 
 import android.content.Context;
 import android.graphics.Bitmap;

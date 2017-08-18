@@ -1,4 +1,4 @@
-package com.guoyaohua.godseye;
+package com.guoyaohua.godseye.chat;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import java.io.File;
 
 
+import com.guoyaohua.godseye.DemoActivity;
 import com.guoyaohua.godseye.utils.DialogCreator;
 import com.guoyaohua.godseye.utils.FileHelper;
 import com.guoyaohua.godseye.utils.IdHelper;

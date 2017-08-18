@@ -16,6 +16,8 @@ import android.widget.Toast;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 
+import com.guoyaohua.godseye.chat.BaseActivity;
+import com.guoyaohua.godseye.chat.ChatActivity;
 import com.guoyaohua.godseye.utils.DialogCreator;
 import com.guoyaohua.godseye.utils.HandleResponseCode;
 import cn.jpush.android.api.JPushInterface;

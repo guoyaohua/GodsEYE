@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" >
 
-        <com.guoyaohua.godseye.CircleImageView
+        <com.guoyaohua.godseye.chat.CircleImageView
             android:id="@+id/jmui_avatar_iv"
             style="@style/jmui_chat_item_receiver_avatar_style" />
 

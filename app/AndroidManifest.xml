@@ -5,7 +5,7 @@
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-    <!--Required 一些系统要求的权限，如访问网络等-->
+    <!-- Required 一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,7 +22,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- JMessage Demo required for record audio-->
+    <!-- JMessage Demo required for record audio -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
@@ -31,13 +31,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true">
-        <!--android:theme="@style/AppTheme"-->
-        <activity android:name="com.guoyaohua.godseye.MainActivity">
+        android:supportsRtl="true"
+         android:theme="@style/android:Theme.Light" >
+        <activity android:name=".MainActivity" />
 
-        </activity>
-
-        <!--以下放在application下 -->
+        <!-- 以下放在application下 -->
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
@@ -50,11 +48,13 @@
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
         </service>
+
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
             android:enabled="true">
             <intent-filter android:priority="1000">
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
             <intent-filter>
@@ -69,6 +69,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -80,13 +81,14 @@
                 <category android:name="${applicationId}" />
             </intent-filter>
         </activity>
+
         <service
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" />
         <!-- Required Push SDK核心功能 -->
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
-        <!-- IM Required IM SDK核心功能-->
+        <!-- IM Required IM SDK核心功能 -->
         <receiver
             android:name="cn.jpush.im.android.helpers.IMReceiver"
             android:enabled="true"
@@ -106,9 +108,11 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.DaemonService" />
+
                 <category android:name="${applicationId}" />
             </intent-filter>
         </service>
+
         <meta-data
             android:name="JPUSH_CHANNEL"
             android:value="developer-default" />
@@ -118,21 +122,21 @@
             android:value="86a06149ef7d951f1b037e58" />
 
         <activity
-            android:name="com.guoyaohua.godseye.ChatActivity"
+            android:name=".chat.ChatActivity"
             android:theme="@style/noTitle"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.guoyaohua.godseye.DemoActivity"
+            android:name=".DemoActivity"
             android:label="@string/app_name"
             android:theme="@style/noTitle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SignInActivity"></activity>
     </application>
 
 </manifest>
