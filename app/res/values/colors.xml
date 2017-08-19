@@ -13,7 +13,7 @@
     <color name="gray">#808080</color>
 
     <!-- 灰色 -->
-
+    <color name="light_grey">#fafafa</color>
     <color name="grey">#808080</color>
 
     <!-- 灰色 -->
@@ -30,8 +30,12 @@
     <color name="blue">#0000FF</color>
 
     <!-- 蓝色 -->
-
+    #29b6f6
+    <color name="new_light_blue">#29b6f6</color>
     <color name="white">#dbd8d8</color>
-
+    <color name="high_light_blue">#e1f5fe</color>
     <color name="light_blue">#8CA4FF</color>
+
+    <color name="hint_text">#6e6e6e</color>
+
 </resources>

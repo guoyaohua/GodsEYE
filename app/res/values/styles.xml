@@ -144,4 +144,12 @@
         <item name="android:gravity">left|center_vertical</item>
     </style>
 
+    <style name="change_face_dialog_anim_style">
+        <item name="android:windowEnterAnimation">@anim/dialog_show</item>
+        <!-- 指定显示的动画xml -->
+
+        <item name="android:windowExitAnimation">@anim/dialog_hidden</item>
+        <!-- 指定消失的动画xml -->
+    </style>
+
 </resources>

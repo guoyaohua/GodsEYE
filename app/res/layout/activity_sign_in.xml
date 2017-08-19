@@ -1,33 +1,52 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sign_in_ParentLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@color/light_grey"
     android:fitsSystemWindows="true">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/face_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/face" />
+
 
     <RelativeLayout
         android:id="@+id/login_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/face_image"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+
         android:gravity="center">
 
         <FrameLayout
             android:id="@+id/username_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="40dp"
+            android:background="#eeeeee"
             android:gravity="center">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/et_UserName"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/default_edittext_height"
+                android:layout_marginRight="60dp"
                 android:layout_marginTop="5dp"
-                android:inputType="number"
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:hint="用户名"
                 android:maxLength="20"
+
                 android:paddingLeft="55dp"
-                android:paddingRight="60dp"></EditText>
+                android:textColor="@color/new_light_blue"
+                android:textColorHint="@color/hint_text"
+                android:textSize="18sp"></EditText>
 
             <ImageView
                 android:layout_width="22dp"
@@ -38,7 +57,7 @@
                 android:visibility="visible" />
 
             <TextView
-                android:id="@+id/contry_sn"
+
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:layout_gravity="left|center_vertical"
@@ -59,22 +78,86 @@
                 android:visibility="invisible" />
         </FrameLayout>
 
+
         <FrameLayout
-            android:id="@+id/usercode_layout"
+            android:id="@+id/nickname_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/username_layout"
             android:layout_marginTop="6dp"
+            android:background="#eeeeee"
+
             android:gravity="center">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/et_NickName"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/default_edittext_height"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="5dp"
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:hint="昵称"
+                android:maxLength="20"
+                android:paddingLeft="55dp"
+                android:textColor="@color/new_light_blue"
+                android:textColorHint="@color/hint_text"
+                android:textSize="18sp"></EditText>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="21dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/login_usr_in_img"
+                android:visibility="visible" />
+
+            <TextView
+
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="+62"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/bt_nickname_clear"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_clear"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:id="@+id/usercode_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nickname_layout"
+            android:layout_marginTop="6dp"
+            android:background="#eeeeee"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/default_edittext_height"
+                android:layout_marginRight="60dp"
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:hint="密码"
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:paddingLeft="55dp"
-                android:paddingRight="60dp"></EditText>
+                android:textColor="@color/new_light_blue"
+                android:textColorHint="@color/hint_text"
+                android:textSize="18sp"></EditText>
 
             <ImageView
                 android:layout_width="24dp"
@@ -86,10 +169,11 @@
             <Button
                 android:id="@+id/bt_pwd_eye"
                 android:layout_width="23dp"
-                android:layout_height="23dp"
+                android:layout_height="16dp"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/button_eye_n" />
+                android:background="@drawable/button_eye_n"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/bt_pwd_clear"
@@ -102,30 +186,69 @@
 
         </FrameLayout>
 
-        <Button
-            android:id="@+id/bt_login"
+        <FrameLayout
+            android:id="@+id/usercode2_layout"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/default_button_height"
+            android:layout_height="wrap_content"
             android:layout_below="@id/usercode_layout"
-            android:layout_marginTop="30dp"
-            android:background="#ff336699"
-            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:background="#eeeeee"
+            android:gravity="center">
 
-            android:text="登录"
-            android:textColor="@android:color/white" />
+            <EditText
+                android:id="@+id/et_password2"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/default_edittext_height"
+                android:layout_marginRight="60dp"
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:hint="确认密码"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:paddingLeft="55dp"
+                android:textColor="@color/new_light_blue"
+                android:textColorHint="@color/hint_text"
+                android:textSize="18sp"></EditText>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="22dp"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="7dp"
+                android:background="@drawable/login_code_in_img" />
+
+            <Button
+                android:id="@+id/bt_pwd_eye2"
+                android:layout_width="23dp"
+                android:layout_height="16dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/button_eye_n"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/bt_pwd_clear2"
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="33dp"
+                android:background="@drawable/button_clear"
+                android:visibility="invisible" />
+
+        </FrameLayout>
 
         <Button
             android:id="@+id/bt_sign"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/default_button_height"
-
-            android:layout_alignLeft="@id/bt_login"
-            android:layout_below="@id/bt_login"
-            android:layout_marginTop="5dp"
-            android:background="#ff336699"
+            android:layout_below="@id/usercode2_layout"
+            android:layout_marginTop="30dp"
+            android:background="@color/new_light_blue"
             android:gravity="center"
-            android:text="注册"
+
+            android:text="注 册"
             android:textColor="@android:color/white" />
+
 
     </RelativeLayout>
 

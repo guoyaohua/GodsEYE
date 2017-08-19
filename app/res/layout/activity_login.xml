@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
+    android:background="@color/light_grey"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
@@ -24,10 +24,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/default_edittext_height"
                 android:layout_marginTop="5dp"
-                android:inputType="number"
+
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:hint="用户名"
                 android:maxLength="20"
                 android:paddingLeft="55dp"
-                android:paddingRight="60dp"></EditText>
+                android:paddingRight="60dp"
+                android:textSize="18sp"></EditText>
 
             <ImageView
                 android:layout_width="22dp"
@@ -71,10 +75,14 @@
                 android:id="@+id/password"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/default_edittext_height"
+                android:background="#eeeeee"
+                android:gravity="center_vertical"
+                android:hint="密码"
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:paddingLeft="55dp"
-                android:paddingRight="60dp"></EditText>
+                android:paddingRight="60dp"
+                android:textSize="18sp"></EditText>
 
             <ImageView
                 android:layout_width="24dp"
@@ -108,7 +116,7 @@
             android:layout_height="@dimen/default_button_height"
             android:layout_below="@id/usercode_layout"
             android:layout_marginTop="30dp"
-            android:background="#ff336699"
+            android:background="#29b6f6"
             android:gravity="center"
 
             android:text="登录"
@@ -122,7 +130,7 @@
             android:layout_alignLeft="@id/bt_login"
             android:layout_below="@id/bt_login"
             android:layout_marginTop="5dp"
-            android:background="#ff336699"
+            android:background="#29b6f6"
             android:gravity="center"
             android:text="注册"
             android:textColor="@android:color/white" />
