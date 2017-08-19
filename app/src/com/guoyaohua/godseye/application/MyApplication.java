@@ -2,6 +2,11 @@ package com.guoyaohua.godseye.application;
 
 import android.app.Application;
 import android.content.Context;
+import android.telephony.TelephonyManager;
+
+import cn.jpush.im.android.api.JMessageClient;
+
+//import cn.jpush.im.android.api.JMessageClient;
 
 /**
  * Created by 郭耀华 on 2017/8/19.
@@ -9,6 +14,7 @@ import android.content.Context;
 
 public class MyApplication extends Application {
     public static Context context;
+    public static String DEVICE_ID = "";
 
     public static Context getContext() {
         return context;
@@ -18,5 +24,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         context = getApplicationContext();
         super.onCreate();
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        DEVICE_ID = tm.getDeviceId();
+        JMessageClient.init(context);
+//        JMessageClient.init(context, true);
     }
 }

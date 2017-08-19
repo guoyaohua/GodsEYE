@@ -130,4 +130,5 @@
     <string name="jmui_sdk_87x_871505">包名不存在</string>
     <string name="jmui_sdk_87x_871506">imei无效</string>
     <string name="jmui_sdk_87x_871201">请求超时，请检查您的网络</string>
+    <string name="font_type">微软雅黑</string>
 </resources>

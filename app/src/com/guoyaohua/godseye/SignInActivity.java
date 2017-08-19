@@ -1,11 +1,15 @@
 package com.guoyaohua.godseye;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +17,24 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.guoyaohua.godseye.application.MyApplication;
+import com.guoyaohua.godseye.utils.CommonUtil;
+import com.guoyaohua.godseye.utils.DialogCreator;
+import com.guoyaohua.godseye.utils.HandleResponseCode;
 
+import java.io.File;
+import java.lang.ref.WeakReference;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SignInActivity extends AppCompatActivity implements View.OnFocusChangeListener, View.OnClickListener {
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
+    private static final int REGISTER = 200;
+    private final SignInActivity.MyHandler myHandler = new SignInActivity.MyHandler(this);
     ChangeFaceImageDialog changeFaceImageDialog;
     private CircleImageView faveImage;
     private Button sign;
@@ -34,6 +50,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
     private EditText et_password2;
     private boolean showPsw = false;
     private ChangeFaceImageHelper changeFaceImageHelper;
+    private File faceImageFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +156,50 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
 
     }
 
+    /**
+     * 注册
+     */
     private void submitSign() {
+        if (checkInput()) {
+            final Dialog dialog = DialogCreator.createLoadingDialog(this, this.getString(R.string.jmui_registering));
+            dialog.show();
+            JMessageClient.register(et_UserName.getText().toString(), et_password.getText().toString(), new BasicCallback() {
+                @Override
+                public void gotResult(int status, String desc) {
+                    dialog.dismiss();
+                    if (status == 0) {//注册成功
+                        myHandler.sendEmptyMessage(REGISTER);
+//                        Toast.makeText(mContext, getString(R.string.jmui_username) + " " + mMyName
+//                                + getString(R.string.jmui_register_success), Toast.LENGTH_SHORT).show();
+                    } else {//注册失败
+                        HandleResponseCode.onHandle(MyApplication.getContext(), status, false);
+                    }
+                }
+            });
+        }
 
+    }
+
+    /**
+     * 检查输入是否合法
+     *
+     * @return
+     */
+    private boolean checkInput() {
+        if (et_UserName.getText().toString().equals("")) {
+            CommonUtil.toastShow(this, "请输入用户名");
+            return false;
+        } else if (et_NickName.getText().toString().equals("")) {
+            CommonUtil.toastShow(this, "请输入昵称");
+            return false;
+        } else if (!et_password.getText().toString().equals(et_password2.getText().toString())) {
+            CommonUtil.toastShow(this, "两次密码输入不相同");
+            return false;
+        } else if (et_password.getText().toString().equals("") && et_password2.getText().toString().equals("")) {
+            CommonUtil.toastShow(this, "请输入密码");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -176,6 +235,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                     try {
                         // 将拍摄的照片显示出来
 //                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(changeFaceImageHelper.imageUri));
+                        faceImageFile = new File(getExternalCacheDir(), "face_Image.jpg");
                         Glide.with(this).load(changeFaceImageHelper.imageUri).into(faveImage);
 
                     } catch (Exception e) {
@@ -194,11 +254,105 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                         changeFaceImageHelper.handleImageBeforeKitKat(data);
                     }
                     changeFaceImageHelper.displayImage(changeFaceImageHelper.imagePath, faveImage);
-
+                    faceImageFile = new File(changeFaceImageHelper.imagePath);
                 }
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 登陆
+     */
+    public void login() {
+        final Dialog loadingDialog = DialogCreator.createLoadingDialog(this, "注册成功，正在登录...");
+        loadingDialog.show();
+        JMessageClient.login(et_UserName.getText().toString(), et_password.getText().toString(), new BasicCallback() {
+            @Override
+            public void gotResult(int status, String desc) {
+//                loadingDialog.dismiss();
+                if (status == 0) {//登录成功
+                    //更新nickname，deviceID，头像
+                    final UserInfo myInfo = JMessageClient.getMyInfo();
+                    if (myInfo != null) {
+                        /**=================     1.更新nickName    =================*/
+                        myInfo.setNickname(et_NickName.getText().toString());
+                        JMessageClient.updateMyInfo(UserInfo.Field.nickname, myInfo, new BasicCallback() {
+                            @Override
+                            public void gotResult(int i, String s) {
+                                if (i == 0) {
+                                    //更新NickName 成功
+                                } else {
+                                    //更新失败
+                                }
+                            }
+                        });
+                        /**=================    2.更新Device_ID    =================*/
+                        myInfo.setSignature(MyApplication.DEVICE_ID);
+                        JMessageClient.updateMyInfo(UserInfo.Field.signature, myInfo, new BasicCallback() {
+                            @Override
+                            public void gotResult(int i, String s) {
+                                if (i == 0) {
+                                    //更新成功
+                                } else {
+                                    //更新失败
+                                }
+                            }
+                        });
+                        /**=================  3.更新头像   =================*/
+                        if (faceImageFile != null) {
+                            try {
+                                JMessageClient.updateUserAvatar(faceImageFile, new BasicCallback() {
+                                    @Override
+                                    public void gotResult(int i, String s) {
+                                        if (i == 0) {
+                                            loadingDialog.dismiss();
+                                            Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
+                                        } else {
+
+                                            Toast.makeText(getApplicationContext(), "修改失败", Toast.LENGTH_SHORT).show();
+                                            Log.i("UpdateUserAvatar", "JMessageClient.updateUserAvatar" + ", responseCode = " + i + " ; LoginDesc = " + s);
+                                        }
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            loadingDialog.dismiss();
+                        }
+
+
+//应该关闭登陆界面
+                    } else {//登录失败
+                        HandleResponseCode.onHandle(MyApplication.getContext(), status, false);
+                    }
+                }
+            }
+        });
+    }
+
+    private static class MyHandler extends Handler {
+
+        private WeakReference<SignInActivity> mActivity;
+
+        public MyHandler(SignInActivity activity) {
+            mActivity = new WeakReference<SignInActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            SignInActivity signInActivity = mActivity.get();
+            if (signInActivity != null) {
+                switch (msg.what) {
+                    case REGISTER:
+                        signInActivity.login();
+
+                        break;
+                }
+            }
         }
     }
 
@@ -221,5 +375,4 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
             }
         }
     }
-
 }

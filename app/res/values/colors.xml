@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
     <color name="jmui_chat_text_color">#373334</color>
     <color name="jmui_item_click_bg_color">#dddddd</color>
     <color name="jmui_jpush_blue">#3f80dc</color>
