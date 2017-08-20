@@ -309,6 +309,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                                         if (i == 0) {
                                             loadingDialog.dismiss();
                                             Toast.makeText(getApplicationContext(), "修改成功", Toast.LENGTH_SHORT).show();
+                                            //登陆成功后，向loginactivity返回结果
+                                            Intent intent = new Intent();
+                                            intent.putExtra("isLogIn", true);
+                                            setResult(RESULT_OK, intent);
+                                            //获取当前用户的信息;
+                                            MyApplication.myInfo = JMessageClient.getMyInfo();
+                                            //跳转到主activity
+                                            intent = new Intent(SignInActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+
                                         } else {
 
                                             Toast.makeText(getApplicationContext(), "修改失败", Toast.LENGTH_SHORT).show();
@@ -321,6 +332,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                             }
                         } else {
                             loadingDialog.dismiss();
+                            //登陆成功后，向loginactivity返回结果
+                            Intent intent = new Intent();
+                            intent.putExtra("isLogIn", true);
+                            setResult(RESULT_OK, intent);
+                            //获取当前用户的信息;
+                            MyApplication.myInfo = JMessageClient.getMyInfo();
+                            //跳转到主activity
+                            intent = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
 
 

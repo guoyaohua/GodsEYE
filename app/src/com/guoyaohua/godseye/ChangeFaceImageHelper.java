@@ -6,8 +6,6 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.DocumentsContract;
@@ -23,7 +21,6 @@ import com.bumptech.glide.Glide;
 import com.guoyaohua.godseye.application.MyApplication;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -127,14 +124,14 @@ public class ChangeFaceImageHelper {
     public void displayImage(String imagePath, ImageView view) {
         if (imagePath != null) {
             // 将拍摄的照片显示出来
-            Bitmap bitmap = null;
-            try {
-                Log.i("aaa", imageUri + "");
-                bitmap = BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(imageUri));
+//            Bitmap bitmap = null;
+//            try {
+//                Log.i("aaa", imageUri + "");
+//                bitmap = BitmapFactory.decodeStream(activity.getContentResolver().openInputStream(imageUri));
                 Glide.with(MyApplication.getContext()).load(imageUri).into(view);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
         } else {
             Toast.makeText(activity, "failed to get image", Toast.LENGTH_SHORT).show();
         }

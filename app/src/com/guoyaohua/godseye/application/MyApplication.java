@@ -5,6 +5,7 @@ import android.content.Context;
 import android.telephony.TelephonyManager;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
 
 //import cn.jpush.im.android.api.JMessageClient;
 
@@ -15,6 +16,7 @@ import cn.jpush.im.android.api.JMessageClient;
 public class MyApplication extends Application {
     public static Context context;
     public static String DEVICE_ID = "";
+    public static UserInfo myInfo;//当前登陆用户
 
     public static Context getContext() {
         return context;

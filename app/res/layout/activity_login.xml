@@ -17,20 +17,22 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
+            android:background="#eeeeee"
             android:gravity="center">
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/et_login_username"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/default_edittext_height"
+                android:layout_marginRight="50dp"
                 android:layout_marginTop="5dp"
-
                 android:background="#eeeeee"
                 android:gravity="center_vertical"
                 android:hint="用户名"
                 android:maxLength="20"
                 android:paddingLeft="55dp"
-                android:paddingRight="60dp"
+                android:textColor="@color/new_light_blue"
+                android:textColorHint="@color/hint_text"
                 android:textSize="18sp"></EditText>
 
             <ImageView
@@ -54,13 +56,13 @@
                 android:visibility="invisible" />
 
             <Button
-                android:id="@+id/bt_username_clear"
+                android:id="@+id/bt_username_clear_login"
                 android:layout_width="23dp"
                 android:layout_height="23dp"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/button_clear"
-                android:visibility="invisible" />
+                android:visibility="gone" />
         </FrameLayout>
 
         <FrameLayout
@@ -69,19 +71,22 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/username_layout"
             android:layout_marginTop="6dp"
+            android:background="#eeeeee"
             android:gravity="center">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/et_login_password"
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/default_edittext_height"
+                android:layout_marginRight="50dp"
                 android:background="#eeeeee"
                 android:gravity="center_vertical"
                 android:hint="密码"
                 android:inputType="textPassword"
                 android:maxLength="20"
                 android:paddingLeft="55dp"
-                android:paddingRight="60dp"
+                android:textColor="@color/new_light_blue"
+                android:textColorHint="@color/hint_text"
                 android:textSize="18sp"></EditText>
 
             <ImageView
@@ -92,29 +97,52 @@
                 android:background="@drawable/login_code_in_img" />
 
             <Button
-                android:id="@+id/bt_pwd_eye"
+                android:id="@+id/bt_pwd_eye_login"
                 android:layout_width="23dp"
-                android:layout_height="23dp"
+                android:layout_height="15dp"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/button_eye_n" />
+                android:background="@drawable/button_eye_n"
+                android:visibility="gone" />
 
-            <Button
-                android:id="@+id/bt_pwd_clear"
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:layout_gravity="right|center_vertical"
-                android:layout_marginRight="33dp"
-                android:background="@drawable/button_clear"
-                android:visibility="invisible" />
 
         </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/save_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/usercode_layout"
+            android:layout_marginTop="10dp">
+
+            <CheckBox
+                android:id="@+id/cb_auto_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:checked="true"
+                android:text="自动登录" />
+
+            <CheckBox
+                android:id="@+id/cb_save_psw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:checked="true"
+                android:text="保存密码" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/bt_login"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/default_button_height"
-            android:layout_below="@id/usercode_layout"
+            android:layout_below="@id/save_layout"
             android:layout_marginTop="30dp"
             android:background="#29b6f6"
             android:gravity="center"
@@ -123,10 +151,9 @@
             android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/bt_sign"
+            android:id="@+id/bt_sign_in"
             android:layout_width="fill_parent"
             android:layout_height="@dimen/default_button_height"
-
             android:layout_alignLeft="@id/bt_login"
             android:layout_below="@id/bt_login"
             android:layout_marginTop="5dp"
