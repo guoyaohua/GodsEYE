@@ -57,8 +57,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     private void initData() {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        String psw = pref.getString("psw", "");
-        String userName = pref.getString("username", "");
+        String psw = pref.getString("psw", "666666");
+        String userName = pref.getString("username", "test");
         boolean savePSW = pref.getBoolean("savePSW", true);
         autoLogin = pref.getBoolean("autoLogin", false);
         et_UserName.setText(userName);

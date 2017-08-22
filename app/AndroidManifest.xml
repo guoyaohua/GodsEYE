@@ -194,6 +194,19 @@
             android:value="SWzdpHOrZcw6hXfSr5kuFRbcy5Gb4NuR" />
 
         <activity android:name=".TestMap"></activity>
+
+        <activity
+            android:name=".track.activity.TrackQueryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".track.activity.TracingOptionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme" />
+
+        <activity
+            android:name=".track.activity.TrackQueryOptionsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme" />
     </application>
 
 </manifest>

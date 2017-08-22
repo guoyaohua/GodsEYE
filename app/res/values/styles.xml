@@ -166,6 +166,9 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <!-- 设置没有标题 -->
         <item name="android:windowNoTitle">true</item>
         <item name="android:fitsSystemWindows">true</item>

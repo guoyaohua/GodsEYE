@@ -178,6 +178,7 @@ public class TrackQueryActivity extends BaseActivity
      * 轨迹分析上一次请求时间
      */
     private long lastQueryTime = 0;
+    private boolean isFirst = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -243,9 +244,13 @@ public class TrackQueryActivity extends BaseActivity
     @Override
     protected void onActivityResult(int historyTrackRequestCode, int resultCode, Intent data) {
         if (null == data) {
+            if (isFirst) {
+                finish();
+            }
+
             return;
         }
-
+        isFirst = false;
         trackPoints.clear();
         pageIndex = 1;
 
