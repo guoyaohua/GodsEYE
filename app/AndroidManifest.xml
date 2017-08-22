@@ -57,7 +57,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+
 
         <!-- 鹰眼追踪 -->
         <service
@@ -186,6 +186,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"></activity>
+
         <activity android:name=".WelcomeActivity"></activity>
 
         <meta-data

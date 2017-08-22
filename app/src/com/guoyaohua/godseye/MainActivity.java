@@ -3,13 +3,6 @@ package com.guoyaohua.godseye;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.ImageButton;
-import com.guoyaohua.godseye.fragment.Fragment_page1;
-import com.guoyaohua.godseye.fragment.Fragment_page2;
-import com.guoyaohua.godseye.fragment.Fragment_page3;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -18,13 +11,19 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.guoyaohua.godseye.application.MyApplication;
+import com.guoyaohua.godseye.fragment.Fragment_page1;
+import com.guoyaohua.godseye.fragment.Fragment_page2;
+import com.guoyaohua.godseye.fragment.Fragment_page3;
 import com.guoyaohua.godseye.track.utils.BitmapUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-public class MainActivity extends AppCompatActivity {
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private PowerManager powerManager = null;
     private ImageButton ib_page1;
     private ImageButton ib_page3;
@@ -44,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         setDefaultFragment();
         init();
         BitmapUtil.init();
-        Intent intent = new Intent(this, TestMap.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, TestMap.class);
+//        startActivity(intent);
 
     }
     @SuppressLint("NewApi")
