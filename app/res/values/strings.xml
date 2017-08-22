@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">天眼--定位监控</string>
+    <string name="app_title">天眼--定位监控</string>
     <string name="jmui_action_settings">Settings</string>
     <string name="jmui_about">关于</string>
     <string name="jmui_send">发送</string>
@@ -131,4 +132,362 @@
     <string name="jmui_sdk_87x_871506">imei无效</string>
     <string name="jmui_sdk_87x_871201">请求超时，请检查您的网络</string>
     <string name="font_type">微软雅黑</string>
+
+    <!-- 公共字符串 -->
+
+
+    <string name="all_supplement_model">里程补偿方式:</string>
+
+    <string name="all_coord_type">坐标类型:</string>
+
+    <string name="all_cancel">取消</string>
+
+    <string name="all_sure">确定</string>
+
+    <string name="all_fence_operate">围栏操作</string>
+
+    <!-- 公共字符串 里程补偿选项 -->
+
+
+    <string name="no_supplement">不补充</string>
+
+    <string name="straight">直线距离</string>
+
+    <string name="driving">最短驾车路线</string>
+
+    <string name="riding">最短骑行路线</string>
+
+    <string name="walking">最短步行路线</string>
+
+    <!-- 公共字符串 坐标类型 -->
+
+
+    <string name="bd09ll">百度经纬度坐标</string>
+
+    <string name="gcj02">国测局加密坐标</string>
+
+    <!-- Activity标题名称-->
+
+
+    <string name="base_title">BaseActivity</string>
+
+    <string name="login_title">LoginActivity</string>
+
+    <string name="tracing_title">轨迹追踪</string>
+
+    <string name="tracing_options_title">追踪设置</string>
+
+    <string name="track_query_title">轨迹查询</string>
+
+    <string name="track_query_options_title">查询设置</string>
+
+    <string name="fence_title">地理围栏</string>
+
+    <string name="bos_title">图片服务</string>
+
+    <string name="cache_manage_title">缓存管理</string>
+
+    <string name="fag_title">常见问题</string>
+
+    <!-- Activity说明 -->
+
+
+    <string name="tracing_desc">室内、外高精度连续追踪</string>
+
+    <string name="track_query_desc">查询被追踪者的历史轨迹</string>
+
+    <string name="fence_desc">本地、云端围栏双重监控</string>
+
+    <string name="bos_desc">上传、下载图片，生成水印图片</string>
+
+    <string name="cache_manage_desc">查询、删除缓存的轨迹信息</string>
+
+    <string name="faq_desc">状态码及问题反馈渠道说明</string>
+
+    <!-- TracingOptionActivity 主选项名称 -->
+
+
+    <string name="tracing_option_interval">采集、打包频率(单位:秒):</string>
+
+    <string name="tracing_option_location_mode">定位模式:</string>
+
+    <string name="tracing_option_object_save">对象存储:</string>
+
+    <!-- 定位模式子选项名称 -->
+
+
+    <string name="high_accuracy">高精度定位模式，GPS与网络综合定位</string>
+
+    <string name="battery_saving">低功耗定位模式，仅使用网络定位</string>
+
+    <string name="device_sensors">仅使用设备(GPS)定位</string>
+
+    <!-- BOS存储开关子选项 -->
+
+
+    <string name="close_bos">关闭</string>
+
+    <string name="open_bos">开启</string>
+
+    <!-- 采集打包子选项 -->
+
+
+    <string name="gather_interval">采集频率:</string>
+
+    <string name="pack_interval">打包频率:</string>
+
+    <!-- 采集打包默认值 -->
+
+
+    <string name="gather_interval_hint">5</string>
+
+    <string name="pack_interval_hint">30</string>
+
+    <!-- TrackQueryOptionsActivity主选项 -->
+
+
+    <string name="track_query_option_time">起止时间:</string>
+
+    <string name="track_query_option_process">纠偏与数据分析:</string>
+
+    <string name="track_query_option_radius_threshold">精度过滤(单位:米):</string>
+
+    <string name="track_query_option_transport_mode">交通方式:</string>
+
+    <string name="track_query_option_sort_type">排序规则:</string>
+
+    <!-- 起止时间子选项 -->
+
+
+    <string name="start_time">开始：</string>
+
+    <string name="end_time">结束：</string>
+
+    <!-- 精度过滤子选项-->
+
+
+    <string name="radius_value">过滤值：</string>
+
+    <string name="radius_hint">0</string>
+
+    <!-- 纠偏与数据分析子选项 -->
+
+
+    <string name="processed">纠偏</string>
+
+    <string name="denoise">去噪</string>
+
+    <string name="vacuate">抽稀</string>
+
+    <string name="mapmatch">绑路</string>
+
+    <!-- 交通方式子选项 -->
+
+
+    <string name="driving_mode">驾车</string>
+
+    <string name="riding_mode">骑行</string>
+
+    <string name="walking_mode">步行</string>
+
+    <!-- 排序规则子选项 -->
+
+
+    <string name="asc">升序</string>
+
+    <string name="desc">降序</string>
+
+    <!-- Dialog标题 -->
+
+
+    <string name="trace_control_title">追踪控制</string>
+
+    <string name="track_analysis_title">轨迹分析</string>
+
+    <string name="track_analysis_speeding_title">超速详情</string>
+
+    <string name="track_analysis_breaking_title">急刹车详情</string>
+
+    <string name="track_analysis_accel_title">急变速详情</string>
+
+    <string name="track_analysis_steering_title">急转弯详情</string>
+
+    <string name="track_analysis_stay_title">停留点详情</string>
+
+    <string name="fence_setting_title">围栏设置</string>
+
+    <string name="fence_create_local_circle">创建本地圆形围栏</string>
+
+    <string name="fence_create_server_circle">创建服务端圆形围栏</string>
+
+    <string name="fence_create_polyline">创建多段线围栏</string>
+
+    <string name="fence_create_polygon">创建多边形围栏</string>
+
+    <!-- 追踪控制子选项 -->
+
+
+    <string name="start_trace">开启服务</string>
+
+    <string name="stop_trace">停止服务</string>
+
+    <string name="start_gather">开启采集</string>
+
+    <string name="stop_gather">停止采集</string>
+
+    <!-- 轨迹分析子选项 -->
+
+
+    <string name="speeding">超 速</string>
+
+    <string name="harsh_breaking">急刹车</string>
+
+    <string name="harsh_accel">急变速</string>
+
+    <string name="harsh_steering">急转弯</string>
+
+    <string name="stay_point">停留点</string>
+
+    <!-- 轨迹分析详情子选项 -->
+
+
+    <string name="loc_time">定位时间</string>
+
+    <string name="actual_speed">实际行驶速度：</string>
+
+    <string name="limit_speed">限定最高时速：</string>
+
+    <string name="acceleration">实际加速度：</string>
+
+    <string name="initial_speed_1">加速前时速：</string>
+
+    <string name="end_speed_1">加速后时速：</string>
+
+    <string name="initial_speed_2">刹车前时速：</string>
+
+    <string name="end_speed_2">刹车后时速：</string>
+
+    <string name="centripetal_acceleration">向心加速度：</string>
+
+    <string name="turn_type">转向类型：</string>
+
+    <string name="turn_speed">转向时速：</string>
+
+    <string name="stay_start_time">开始时间：</string>
+
+    <string name="stay_end_time">结束时间：</string>
+
+    <string name="stay_duration">停留时长：</string>
+
+    <!-- 围栏设置子选项 -->
+
+
+    <string name="fence_type">围栏类型</string>
+
+    <string name="fence_shape">围栏形状</string>
+
+    <string name="fence_name">围栏名称</string>
+
+    <string name="vertexes_number">顶点数</string>
+
+    <!-- 围栏类型子选项 -->
+
+
+    <string name="local_fence">本地(蓝色围栏)</string>
+
+    <string name="server_fence">服务端(红色围栏)</string>
+
+    <!-- 围栏操作子选项-->
+
+
+    <string name="create_fence">创建</string>
+
+    <string name="fence_list">查询</string>
+
+    <string name="alarm_info">历史报警信息</string>
+
+    <string name="update_fence">更新</string>
+
+    <string name="delete_fence">删除</string>
+
+    <!-- 围栏形状子选项 -->
+
+
+    <string name="circle_fence">圆形</string>
+
+    <string name="polygon_fence">多边形</string>
+
+    <string name="polyline_fence">多段线</string>
+
+    <!-- 创建围栏子选项 -->
+
+
+    <string name="fence_denoise">去噪参数（单位：米）</string>
+
+    <string name="fence_radius">半径（单位：米）</string>
+
+    <string name="fence_offset">偏离距离（单位：米）</string>
+
+    <string name="alarm_condition">围栏报警条件</string>
+
+    <!-- 创建围栏子选项默认值 -->
+
+
+    <string name="denoise_hint">0</string>
+
+    <string name="fence_radius_hint">1000</string>
+
+    <string name="offset_hint">200</string>
+
+    <string name="vertexes_number_hint">3</string>
+
+    <string name="fence_name_hint">myFence</string>
+
+    <!-- 创建围栏提示信息 -->
+
+
+    <string name="fence_create_caption"> 1、创建圆形围栏时，请点击地图相应位置作为围栏圆心；\n2、创建多边形或多段线围栏时，请按照设定的顶点数，依次点击地图作为每段折线的起点；\n3、本地围栏暂只支持圆形围栏 </string>
+
+    <!-- 查询围栏提示信息-->
+
+
+    <string name="fence_operate_caption">圆形围栏只显示中心图标， \n 多边形、多段线围栏只显示起点图标。 \n 请点击图标进行围栏操作! </string>
+
+    <!-- 报警通知标题 -->
+
+
+    <string name="alarm_push_title">百度鹰眼报警推送</string>
+
+    <!-- BosActivity 选项 -->
+
+
+    <string name="put_object">上传对象(图片)</string>
+
+    <string name="get_object">获取对象(图片)</string>
+
+    <string name="generatePresigned_url">获取对象(图片)URL</string>
+
+    <!-- 对象（图片）操作提示信息-->
+
+
+    <string name="not_granted_album_permission">未获取到读取相册的权限</string>
+
+    <string name="open_album_failed">打开相册失败</string>
+
+    <string name="not_select_picture">未获取到图片</string>
+
+    <string name="save_picture">图片下载成功,正在保存...</string>
+
+    <!-- CacheManageActivity 选项 -->
+
+
+    <string name="query_cache_track">查询缓存轨迹信息</string>
+
+    <string name="clear_cache_track">清除缓存轨迹信息</string>
+
+    <string name="no_track_data">未查询到轨迹</string>
+
+    <string name="loc_failed">定位失败</string>
+
+
 </resources>

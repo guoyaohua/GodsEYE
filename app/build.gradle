@@ -19,6 +19,8 @@ android {
     }
     sourceSets {
         main {
+
+            jniLibs.srcDir 'libs'
             jniLibs.srcDirs = ['libs']
             manifest.srcFile 'AndroidManifest.xml'
             jniLibs.srcDirs = ['libs']
@@ -42,6 +44,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.github.bumptech.glide:glide:4.0.0'
     compile 'com.android.support:support-v4:25.3.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 }

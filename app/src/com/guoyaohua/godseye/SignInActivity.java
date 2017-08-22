@@ -2,11 +2,13 @@ package com.guoyaohua.godseye;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
@@ -51,6 +53,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
     private boolean showPsw = false;
     private ChangeFaceImageHelper changeFaceImageHelper;
     private File faceImageFile;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -273,6 +277,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
             public void gotResult(int status, String desc) {
 //                loadingDialog.dismiss();
                 if (status == 0) {//登录成功
+                    //登录成功
+                    pref = PreferenceManager.getDefaultSharedPreferences(SignInActivity.this);
+                    editor = pref.edit();
+                    editor.putString("username", et_UserName.getText().toString());
+                    editor.putString("psw", et_password.getText().toString());
+                    editor.apply();
                     //更新nickname，deviceID，头像
                     final UserInfo myInfo = JMessageClient.getMyInfo();
                     if (myInfo != null) {
@@ -289,7 +299,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                             }
                         });
                         /**=================    2.更新Device_ID    =================*/
-                        myInfo.setSignature(MyApplication.DEVICE_ID);
+
+                       /* myInfo.setSignature(MyApplication.DEVICE_ID);
                         JMessageClient.updateMyInfo(UserInfo.Field.signature, myInfo, new BasicCallback() {
                             @Override
                             public void gotResult(int i, String s) {
@@ -299,7 +310,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                                     //更新失败
                                 }
                             }
-                        });
+                        });*/
                         /**=================  3.更新头像   =================*/
                         if (faceImageFile != null) {
                             try {
@@ -343,8 +354,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnFocusCha
                             startActivity(intent);
                             finish();
                         }
-
-
+/*//启动百度服务
+                        MyApplication myApplication = (MyApplication) getApplication();
+                        myApplication.entityName = MyApplication.myInfo.getUserName();
+                        myApplication.startBaiduService();*/
 //应该关闭登陆界面
                     } else {//登录失败
                         HandleResponseCode.onHandle(MyApplication.getContext(), status, false);

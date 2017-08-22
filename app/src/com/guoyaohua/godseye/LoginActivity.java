@@ -38,6 +38,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        if (JMessageClient.getMyInfo() != null) {
+            MyApplication.myInfo = JMessageClient.getMyInfo();
+            //跳转到主界面
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         initWigit();
         initData();
         if (autoLogin) {//自动登录
@@ -72,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         cb_autoLogin = (CheckBox) findViewById(R.id.cb_auto_login);
         bt_login.setOnClickListener(this);
         bt_to_sign.setOnClickListener(this);
-        ;
+
         bt_pwd_eye = (Button) findViewById(R.id.bt_pwd_eye_login);
         bt_username_clear = (Button) findViewById(R.id.bt_username_clear_login);
         bt_username_clear.setOnClickListener(this);
@@ -141,6 +148,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if (status == 0) {
                         //获取当前用户的信息;
                         MyApplication.myInfo = JMessageClient.getMyInfo();
+                    /*    MyApplication myApplication = (MyApplication) getApplication();
+                        myApplication.entityName = MyApplication.myInfo.getUserName();
+
+                        myApplication.startBaiduService();*/
                         //登录成功
                         editor = pref.edit();
                         editor.putBoolean("savePSW", cb_savePSW.isChecked());

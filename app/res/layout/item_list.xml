@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_height"
+    android:background="@drawable/list_selector"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    tools:context="com.guoyaohua.godseye.track.activity.MainActivity$MyAdapter">
+
+    <ImageView
+        android:id="@+id/iv_all_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_weight="0.9"
+        android:gravity="left|center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_all_title"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:gravity="bottom"
+            android:paddingBottom="5dp"
+            android:textColor="@color/list_item_title"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_all_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textColor="@color/list_item_desc"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_all_enter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_enter" />
+
+
+</LinearLayout>

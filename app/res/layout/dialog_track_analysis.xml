@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_track_analysis"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="center"
+    android:background="#00000000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <LinearLayout style="@style/dialog_layout_style">
+
+        <include layout="@layout/dialog_top"></include>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <CheckBox
+                android:id="@+id/chk_speeding"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:button="@drawable/chk_selector"
+                android:minHeight="25dp"
+                android:text="@string/speeding"
+                android:textColor="@color/list_item_desc"
+                android:textSize="10dp" />
+
+            <CheckBox
+                android:id="@+id/chk_harsh_breaking"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:button="@drawable/chk_selector"
+                android:minHeight="25dp"
+                android:text="@string/harsh_breaking"
+                android:textColor="@color/list_item_desc"
+                android:textSize="10dp" />
+
+            <CheckBox
+                android:id="@+id/chk_harsh_accel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:button="@drawable/chk_selector"
+                android:minHeight="25dp"
+                android:text="@string/harsh_accel"
+                android:textColor="@color/list_item_desc"
+                android:textSize="10dp" />
+
+            <CheckBox
+                android:id="@+id/chk_harsh_steering"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:button="@drawable/chk_selector"
+                android:minHeight="25dp"
+                android:text="@string/harsh_steering"
+                android:textColor="@color/list_item_desc"
+                android:textSize="10dp" />
+
+            <CheckBox
+                android:id="@+id/chk_stay_point"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:button="@drawable/chk_selector"
+                android:minHeight="25dp"
+                android:text="@string/stay_point"
+                android:textColor="@color/list_item_desc"
+                android:textSize="10dp" />
+
+        </LinearLayout>
+
+        <include layout="@layout/dialog_bottom"></include>
+
+    </LinearLayout>
+
+</LinearLayout>
