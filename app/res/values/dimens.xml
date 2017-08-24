@@ -49,6 +49,6 @@
 
     <dimen name="activity_title_size">18sp</dimen>
 
-    <dimen name="activity_title_height">40dp</dimen>
+    <dimen name="activity_title_height">50dp</dimen>
 
 </resources>

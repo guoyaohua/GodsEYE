@@ -1,13 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="com.guoyaohua.godseye.fragment.Fragment_page2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="page2" />
 
-</FrameLayout>
+        android:background="#00ffffff">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_UserList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00ffffff" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+</RelativeLayout>

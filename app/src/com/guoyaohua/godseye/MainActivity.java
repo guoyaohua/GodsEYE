@@ -19,9 +19,12 @@ import com.guoyaohua.godseye.fragment.Fragment_page1;
 import com.guoyaohua.godseye.fragment.Fragment_page2;
 import com.guoyaohua.godseye.fragment.Fragment_page3;
 import com.guoyaohua.godseye.track.utils.BitmapUtil;
+import com.guoyaohua.godseye.utils.CommonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private PowerManager powerManager = null;
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Fragment_page3 fragment_page3;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private ImageButton bt_setting;
+    private ImageButton bt_add;
+    private de.hdodenhof.circleimageview.CircleImageView faceImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        startActivity(intent);
 
     }
+
     @SuppressLint("NewApi")
     private void setDefaultFragment() {
         manager = getFragmentManager();
@@ -61,10 +68,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ib_page1 = (ImageButton) findViewById(R.id.ib_page1);
         ib_page2 = (ImageButton) findViewById(R.id.ib_page2);
         ib_page3 = (ImageButton) findViewById(R.id.ib_page3);
+        bt_setting = (ImageButton) findViewById(R.id.bt_setting);
+        bt_add = (ImageButton) findViewById(R.id.bt_add);
+        faceImageView = (CircleImageView) findViewById(R.id.im_faceIcon_main);
 
         ib_page1.setOnClickListener(this);
         ib_page2.setOnClickListener(this);
         ib_page3.setOnClickListener(this);
+        bt_setting.setOnClickListener(this);
+        bt_add.setOnClickListener(this);
+        faceImageView.setOnClickListener(this);
     }
 
     @Override
@@ -78,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 // 使用当前Fragment的布局替代id_content的控件
                 transaction.replace(R.id.fragment_container, fragment_page1);
+                bt_setting.setVisibility(View.VISIBLE);
+                bt_add.setVisibility(View.GONE);
                 break;
 
             case R.id.ib_page2:
@@ -86,6 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 // 使用当前Fragment的布局替代id_content的控件
                 transaction.replace(R.id.fragment_container, fragment_page2);
+                bt_add.setVisibility(View.VISIBLE);
+                bt_setting.setVisibility(View.GONE);
                 break;
 
             case R.id.ib_page3:
@@ -94,6 +111,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 // 使用当前Fragment的布局替代id_content的控件
                 transaction.replace(R.id.fragment_container, fragment_page3);
+                bt_add.setVisibility(View.GONE);
+                bt_setting.setVisibility(View.GONE);
+                break;
+            case R.id.bt_setting:
+                CommonUtil.toastShow(this, "设置");
+                break;
+            case R.id.bt_add:
+                CommonUtil.toastShow(this, "添加好友");
+                break;
+            case R.id.im_faceIcon_main:
+                CommonUtil.toastShow(this, "点击头像");
                 break;
 
         }
@@ -140,8 +168,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //启动鹰眼服务;
         MyApplication myApplication = (MyApplication) getApplication();
-        myApplication.entityName = MyApplication.myInfo.getUserName();
+        if (MyApplication.myInfo != null) {
+            myApplication.entityName = MyApplication.myInfo.getUserName();
+        } else {
 
+        }
         myApplication.startBaiduService();
     }
 
@@ -168,4 +199,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        fragment_page1.mapUtil.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        fragment_page1.mapUtil.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        fragment_page1.mapUtil.clear();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        fragment_page1.mapUtil.clear();
+    }
 }

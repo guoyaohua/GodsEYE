@@ -58,12 +58,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-
         <!-- 鹰眼追踪 -->
         <service
             android:name="com.baidu.trace.LBSTraceService"
             android:enabled="true"
-            android:process=":remote"></service>
+            android:process=":remote" />
 
         <!-- 以下放在application下 -->
         <service
@@ -158,9 +157,7 @@
         <activity
             android:name=".DemoActivity"
             android:label="@string/app_name"
-            android:theme="@style/noTitle">
-
-        </activity>
+            android:theme="@style/noTitle"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -168,10 +165,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity">
-
-        </activity>
-
+        <activity android:name=".SignInActivity"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -185,16 +179,15 @@
 
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"></activity>
-
-        <activity android:name=".WelcomeActivity"></activity>
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".WelcomeActivity" />
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="SWzdpHOrZcw6hXfSr5kuFRbcy5Gb4NuR" />
 
-        <activity android:name=".TestMap"></activity>
-
+        <activity android:name=".TestMap" />
         <activity
             android:name=".track.activity.TrackQueryActivity"
             android:screenOrientation="portrait" />
@@ -202,11 +195,11 @@
             android:name=".track.activity.TracingOptionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme" />
-
         <activity
             android:name=".track.activity.TrackQueryOptionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme" />
+        <activity android:name=".RealLocationActivity"></activity>
     </application>
 
 </manifest>

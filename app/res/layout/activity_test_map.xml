@@ -16,11 +16,15 @@
         android:id="@+id/bt_trace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="25dp"
-        android:text="轨迹" />
+        android:layout_marginRight="10dp"
+        android:background="@color/jmui_default_cursor_color"
+        android:elevation="50dp"
+        android:text="轨迹查询" />
 
     <Button
         android:id="@+id/bt_loc"
@@ -30,5 +34,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="22dp"
-        android:text="位置" />
+        android:layout_marginRight="10dp"
+        android:background="@color/jmui_default_cursor_color"
+        android:elevation="50dp"
+        android:text="实时位置" />
 </RelativeLayout>

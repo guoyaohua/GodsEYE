@@ -34,9 +34,12 @@ import com.guoyaohua.godseye.track.utils.CommonUtil;
 import com.guoyaohua.godseye.track.utils.Constants;
 import com.guoyaohua.godseye.track.utils.NetUtil;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.model.UserInfo;
 
 
@@ -49,18 +52,20 @@ public class MyApplication extends Application {
     public static UserInfo myInfo;//当前登陆用户
     public static int screenWidth = 0;
     public static int screenHeight = 0;
+    public static List<UserInfo> userInfos = new ArrayList<UserInfo>();//监控对象列表
+    public static List<String> entityNames;//带监控对象实例名，也是登陆名。
+    /**
+     * 轨迹服务ID
+     */
+    public static long serviceId = 148652;
     /**
      * 轨迹客户端
      */
-    public LBSTraceClient mClient = null;
+    public static LBSTraceClient mClient = null;
     /**
      * 轨迹服务
      */
     public Trace mTrace = null;
-    /**
-     * 轨迹服务ID
-     */
-    public long serviceId = 148652;
     /**
      * Entity标识
      */
@@ -127,6 +132,35 @@ public class MyApplication extends Application {
 
 
         initListener();
+        initUserInfosList();
+    }
+
+    /**
+     * 初始化监控对象列表
+     * 1.从数据库中查询待监控用户名
+     * 2.新建一个子线程，遍历查询用户名信息
+     * 3.将用户信息保存在userInfos中
+     */
+    private void initUserInfosList() {
+        entityNames = new ArrayList<String>();
+        entityNames.add("xiaoming");
+        entityNames.add("xiaozhang");
+        entityNames.add("xiaohehe");
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < entityNames.size(); i++)
+                    JMessageClient.getUserInfo(entityNames.get(i), new GetUserInfoCallback() {
+                        @Override
+                        public void gotResult(int i, String s, UserInfo userInfo) {
+                            userInfos.add(userInfo);
+                            Log.i("getUserInfo", userInfo.getUserName().toString() + "  " + userInfos.size());
+                        }
+                    });
+            }
+        }).start();
 
     }
 

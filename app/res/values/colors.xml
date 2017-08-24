@@ -35,11 +35,13 @@
     <!-- 蓝色 -->
     #29b6f6
     <color name="new_light_blue">#29b6f6</color>
-    <color name="white">#dbd8d8</color>
+    <color name="white">#ffffffff</color>
+    <!--<color name="white">#dbd8d8</color>-->
     <color name="high_light_blue">#e1f5fe</color>
     <color name="light_blue">#8CA4FF</color>
 
     <color name="hint_text">#6e6e6e</color>
+    <color name="divide">#d4acacac</color>
 
 
     <color name="colorTransparent">#00000000</color>

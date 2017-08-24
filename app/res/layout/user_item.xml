@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="#00ffffff">
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="80dp"-->
+    <!--android:elevation="5dp"-->
+    <!--android:background="#00ffffff"-->
+    <!--app:cardCornerRadius="2dp">-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#00000000">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_FaceImage_item"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:background="#00ffffff"
+            android:src="@drawable/face" />
+
+        <LinearLayout
+            android:id="@+id/info_item_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/iv_FaceImage_item"
+            android:layout_toLeftOf="@+id/tv_line"
+            android:layout_toRightOf="@+id/iv_FaceImage_item"
+            android:layout_toStartOf="@+id/tv_line"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_NickName_item"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:text="NickName"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+
+                    android:id="@+id/iv_state_item"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/tv_state_item"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text="监控中"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_GPS_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:paddingLeft="10dp"
+                android:text="经度:65248552   纬度：45214556"
+                android:textColor="@color/sure_bg" />
+
+            <TextView
+                android:id="@+id/loc_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="最新位置：天安门附近"
+                android:textColor="@color/sure_bg" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_line"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/message_layout"
+            android:layout_toStartOf="@+id/message_layout"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/message_layout"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/ib_SentMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_launcher" />
+
+        </LinearLayout>
+    </RelativeLayout>
+    <!--</android.support.v7.widget.CardView>-->
+</RelativeLayout>

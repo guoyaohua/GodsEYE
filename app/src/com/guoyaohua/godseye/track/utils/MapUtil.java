@@ -102,7 +102,7 @@ public class MapUtil {
     public void init(MapView view) {
         mapView = view;
         baiduMap = mapView.getMap();
-        mapView.showZoomControls(false);
+        mapView.showZoomControls(true);
     }
 
     public void onPause() {
@@ -127,6 +127,7 @@ public class MapUtil {
             polylineOverlay.remove();
             polylineOverlay = null;
         }
+
         if (null != baiduMap) {
             baiduMap.clear();
             baiduMap = null;
@@ -137,6 +138,7 @@ public class MapUtil {
             mapView = null;
         }
     }
+
 
     /**
      * 设置地图中心：使用已有定位信息；
@@ -163,7 +165,9 @@ public class MapUtil {
     }
 
     public void updateStatus(LatLng currentPoint, boolean showMarker) {
+
         if (null == baiduMap || null == currentPoint) {
+            Log.i("Map", "baiduMap=null");
             return;
         }
 

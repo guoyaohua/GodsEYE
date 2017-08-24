@@ -709,8 +709,8 @@ public class TrackQueryActivity extends BaseActivity
         harshAccelMarkers = null;
         harshBreakingMarkers = null;
         stayPointMarkers = null;
-
-        mapUtil.clear();
+//        Log.i("Map","mapUtil.clear()运行");
+//        mapUtil.clear1();
 
     }
 
