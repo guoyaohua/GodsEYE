@@ -187,11 +187,11 @@ public class Fragment_page1 extends Fragment implements View.OnClickListener {
 
     @Override
     public void onResume() {
-        Log.i("Map", "onResume");
+//        Log.i("Map", "onResume");
         super.onResume();
         initMap();
         mapUtil.onResume();
-        startRealTimeLoc(3);
+        startRealTimeLoc(5);
     }
 
     public void stopRealTimeLoc() {

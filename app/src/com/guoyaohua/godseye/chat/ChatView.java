@@ -21,19 +21,40 @@ import android.widget.TextView;
 
 import com.guoyaohua.godseye.utils.IdHelper;
 import com.guoyaohua.godseye.utils.SharePreferenceManager;
+
 import cn.jpush.im.android.api.model.Conversation;
 
 public class ChatView extends RelativeLayout{
 
+    public static final byte KEYBOARD_STATE_SHOW = -3;
+    public static final byte KEYBOARD_STATE_HIDE = -2;
+    public static final byte KEYBOARD_STATE_INIT = -1;
+    public EditText mChatInputEt;
+    Context mContext;
     private LinearLayout mBackground;
     private TableLayout mMoreMenuTl;
+    OnFocusChangeListener listener = new OnFocusChangeListener() {
+
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                Log.i("ChatView", "Input focus");
+                Handler handler = new Handler();
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissMoreMenu();
+                    }
+                });
+            }
+        }
+    };
     private DropDownListView mChatListView;
     private ImageButton mReturnBtn;
     private ImageButton mRightBtn;
     private TextView mChatTitle;
     private TextView mGroupNumTv;
     private RecordVoiceButton mVoiceBtn;
-    public EditText mChatInputEt;
     private ImageButton mSwitchIb;
     private ImageButton mExpressionIb;
     private ImageButton mAddFileIb;
@@ -42,23 +63,45 @@ public class ChatView extends RelativeLayout{
     private ImageButton mLocationIb;
     private ImageButton mSendVideoIb;
     private Button mSendMsgBtn;
-    Context mContext;
     private OnSizeChangedListener mListener;
     private OnKeyBoardChangeListener mKeyboardListener;
-
-    public static final byte KEYBOARD_STATE_SHOW = -3;
-    public static final byte KEYBOARD_STATE_HIDE = -2;
-    public static final byte KEYBOARD_STATE_INIT = -1;
     private boolean mHasInit;
     private boolean mHasKeybord;
     private int mHeight;
+    private TextWatcher watcher = new TextWatcher() {
+        private CharSequence temp = "";
+
+        @Override
+        public void afterTextChanged(Editable arg0) {
+            // TODO Auto-generated method stub
+            if (temp.length() > 0) {
+                mAddFileIb.setVisibility(View.GONE);
+                mSendMsgBtn.setVisibility(View.VISIBLE);
+            } else {
+                mAddFileIb.setVisibility(View.GONE);
+                mSendMsgBtn.setVisibility(View.VISIBLE);
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int count, int after) {
+            // TODO Auto-generated method stub
+            temp = s;
+        }
+
+    };
 
     public ChatView(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
         this.mContext = context;
     }
-
 
     public void initModule(float density, int densityDpi) {
         mChatTitle = (TextView) findViewById(IdHelper.getViewID(mContext, "jmui_title"));
@@ -161,45 +204,9 @@ public class ChatView extends RelativeLayout{
         mChatInputEt.setText(text);
     }
 
-    public interface OnSizeChangedListener {
-        void onSizeChanged(int w, int h, int oldw, int oldh);
-    }
-
-    public interface OnKeyBoardChangeListener {
-        void onKeyBoardStateChange(int state);
-    }
-
     public void setOnKbdStateListener(OnKeyBoardChangeListener listener) {
         mKeyboardListener = listener;
     }
-
-    private TextWatcher watcher = new TextWatcher() {
-        private CharSequence temp = "";
-        @Override
-        public void afterTextChanged(Editable arg0) {
-            // TODO Auto-generated method stub
-            if (temp.length() > 0) {
-                mAddFileIb.setVisibility(View.GONE);
-                mSendMsgBtn.setVisibility(View.VISIBLE);
-            }else {
-                mAddFileIb.setVisibility(View.VISIBLE);
-                mSendMsgBtn.setVisibility(View.GONE);
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int count, int after) {
-            // TODO Auto-generated method stub
-            temp = s;
-        }
-
-    };
 
     public void focusToInput(boolean inputFocus) {
         if (inputFocus) {
@@ -209,23 +216,6 @@ public class ChatView extends RelativeLayout{
             mAddFileIb.requestFocusFromTouch();
         }
     }
-
-    OnFocusChangeListener listener = new OnFocusChangeListener() {
-
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            if (hasFocus) {
-                Log.i("ChatView", "Input focus");
-                Handler handler = new Handler();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dismissMoreMenu();
-                    }
-                });
-            }
-        }
-    };
 
     public void setListeners(OnClickListener onClickListener) {
         mReturnBtn.setOnClickListener(onClickListener);
@@ -263,10 +253,10 @@ public class ChatView extends RelativeLayout{
         mExpressionIb.setVisibility(View.GONE);
         if (mChatInputEt.getText().length() > 0) {
             mSendMsgBtn.setVisibility(View.VISIBLE);
-            mAddFileIb.setVisibility(View.GONE);
+//            mAddFileIb.setVisibility(View.GONE);
         }else {
-            mSendMsgBtn.setVisibility(View.GONE);
-            mAddFileIb.setVisibility(View.VISIBLE);
+            mSendMsgBtn.setVisibility(View.VISIBLE);
+//            mAddFileIb.setVisibility(View.VISIBLE);
         }
     }
 
@@ -284,8 +274,6 @@ public class ChatView extends RelativeLayout{
     public String getChatInput() {
         return mChatInputEt.getText().toString();
     }
-
-
 
     public void setChatTitle(String title) {
         mChatTitle.setText(title);
@@ -335,7 +323,7 @@ public class ChatView extends RelativeLayout{
     }
 
     public void showMoreMenu() {
-        mMoreMenuTl.setVisibility(View.VISIBLE);
+        mMoreMenuTl.setVisibility(View.GONE);
     }
 
     public void invisibleMoreMenu() {
@@ -364,5 +352,13 @@ public class ChatView extends RelativeLayout{
 
     public DropDownListView getListView() {
         return mChatListView;
+    }
+
+    public interface OnSizeChangedListener {
+        void onSizeChanged(int w, int h, int oldw, int oldh);
+    }
+
+    public interface OnKeyBoardChangeListener {
+        void onKeyBoardStateChange(int state);
     }
 }

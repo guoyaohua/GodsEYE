@@ -199,7 +199,9 @@
             android:name=".track.activity.TrackQueryOptionsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppBaseTheme" />
-        <activity android:name=".RealLocationActivity"></activity>
+        <activity
+            android:name=".RealLocationActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
     </application>
 
 </manifest>

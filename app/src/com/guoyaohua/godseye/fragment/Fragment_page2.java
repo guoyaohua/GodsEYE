@@ -1,8 +1,12 @@
 package com.guoyaohua.godseye.fragment;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,9 +31,21 @@ import java.util.List;
 
 
 public class Fragment_page2 extends Fragment {
-
+    private final int UPDATE_FINISHED = 1;
+    public Activity mActivity;
     UserAdapter adapter;
     RecyclerView recyclerView;
+    private SwipeRefreshLayout swipeRefresh;
+    public Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (UPDATE_FINISHED == msg.what) {
+                swipeRefresh.setRefreshing(false);
+//                Toast.makeText(mActivity, "UPDATE_FINISHED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
     //    private List<UserInfo> userInfos;
     private MyApplication myApplication;
     private List<EntityInfo> entityInfos;
@@ -37,7 +53,8 @@ public class Fragment_page2 extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        myApplication = (MyApplication) getActivity().getApplication();
+        mActivity = getActivity();
+        myApplication = (MyApplication) mActivity.getApplication();
     }
 
     @Override
@@ -50,13 +67,29 @@ public class Fragment_page2 extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_UserList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApplication.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new RecycleViewDivider(MyApplication.getContext(), LinearLayoutManager.HORIZONTAL));
+        //给recycView添加分割线
+//        recyclerView.addItemDecoration(new RecycleViewDivider(MyApplication.getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView.addItemDecoration(new RecycleViewDivider(
                 MyApplication.getContext(), LinearLayoutManager.HORIZONTAL, R.drawable.divider_mileage));
 //        recyclerView.addItemDecoration(new RecycleViewDivider(
 //                mContext, LinearLayoutManager.VERTICAL, 10, getResources().getColor(R.color.divide_gray_color)));
 
-
+        swipeRefresh = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        inituserInfos();
+                        Message msg = new Message();
+                        msg.what = UPDATE_FINISHED;
+                        handler.sendMessage(msg);
+                    }
+                }).start();
+            }
+        });
         adapter = new UserAdapter(MyApplication.userInfos);
         recyclerView.setAdapter(adapter);
 
@@ -87,7 +120,6 @@ public class Fragment_page2 extends Fragment {
 // 创建Entity列表请求实例
         EntityListRequest request = new EntityListRequest(tag, MyApplication.serviceId, filterCondition, coordTypeOutput, pageIndex, pageSize);
 
-
 // 初始化监听器
         OnEntityListener entityListener = new OnEntityListener() {
             @Override
@@ -115,7 +147,7 @@ public class Fragment_page2 extends Fragment {
                                 } else {
                                     MyApplication.userInfos.get(i).setNotename("在线");
                                 }
-
+//                                Log.i("time",entityInfos.get(i).getEntityName().toString()+"定位时间："+locTime+"系统时间："+(System.currentTimeMillis() / 1000));
                                 MyApplication.userInfos.get(j).setNoteText("时间：" + sDateTime);
 
                             }
@@ -128,10 +160,8 @@ public class Fragment_page2 extends Fragment {
             }
         };
 
-
 // 查询Entity列表
         MyApplication.mClient.queryEntityList(request, entityListener);
-
 
     }
 

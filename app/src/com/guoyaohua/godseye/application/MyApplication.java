@@ -130,7 +130,7 @@ public class MyApplication extends Application {
         SDKInitializer.initialize(context);
         initNotification();
 
-
+        getScreenSize();
         initListener();
         initUserInfosList();
     }
@@ -143,7 +143,7 @@ public class MyApplication extends Application {
      */
     private void initUserInfosList() {
         entityNames = new ArrayList<String>();
-        entityNames.add("xiaoming");
+        entityNames.add("guoyaohua");
         entityNames.add("xiaozhang");
         entityNames.add("xiaohehe");
 

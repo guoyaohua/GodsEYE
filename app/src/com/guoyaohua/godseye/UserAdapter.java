@@ -1,5 +1,6 @@
 package com.guoyaohua.godseye;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.guoyaohua.godseye.application.MyApplication;
+import com.guoyaohua.godseye.chat.ChatActivity;
 
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.UserInfo;
 
 /**
@@ -21,6 +24,8 @@ import cn.jpush.im.android.api.model.UserInfo;
  */
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+    private static final String TARGET_ID = "targetId";
+    private static final String TARGET_APP_KEY = "targetAppKey";
     public List<UserInfo> userInfos;
 
     public UserAdapter(List<UserInfo> userInfos) {
@@ -36,7 +41,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(UserAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(UserAdapter.ViewHolder holder, final int position) {
 //初始化UI
         UserInfo userInfo = userInfos.get(position);
         Glide.with(MyApplication.getContext()).load(userInfo.getAvatarFile()).into(holder.iv_FaceImage_item);
@@ -50,7 +55,57 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.tv_state_item.setText("离线");
             Glide.with(MyApplication.getContext()).load(R.drawable.bt_refresh).into(holder.iv_state_item);
         }
+        holder.InfoLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MyApplication.getContext(), "1", Toast.LENGTH_SHORT).show();
+            }
+        });
 
+        holder.iv_FaceImage_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MyApplication.getContext(), RealLocationActivity.class);
+                intent.putExtra("userName", userInfos.get(position).getUserName().toString());
+                intent.putExtra("nickName", userInfos.get(position).getNickname().toString());
+                MyApplication.getContext().startActivity(intent);
+            }
+        });
+        holder.ib_SentMsg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                    Toast.makeText(MyApplication.getContext(), "2", Toast.LENGTH_SHORT).show();
+                final Intent intent = new Intent();
+                if (JMessageClient.getMyInfo() != null) {
+                    intent.putExtra(TARGET_ID, userInfos.get(position).getUserName().toString());
+                    intent.putExtra(TARGET_APP_KEY, JMessageClient.getMyInfo().getAppKey());
+
+                    intent.setClass(MyApplication.getContext(), ChatActivity.class);
+                    MyApplication.getContext().startActivity(intent);
+                } else {
+                    Toast.makeText(MyApplication.getContext(), "用户掉线，请重新登陆", Toast.LENGTH_SHORT).show();
+                       /* final Dialog dialog = DialogCreator.createLoadingDialog(MyApplication.getContext(),
+                                MyApplication.getContext().getString(R.string.jmui_logging));
+                        dialog.show();
+                        JMessageClient.login(mMyName, mMyPassword, new BasicCallback() {
+                            @Override
+                            public void gotResult(int status, String desc) {
+                                dialog.dismiss();
+                                if (status == 0) {
+                                    intent.putExtra(TARGET_ID, MyApplication.myInfo.getUserName());
+                                    intent.setClass(MyApplication.getContext(), ChatActivity.class);
+                                    MyApplication.getContext().startActivity(intent);
+                                } else {
+                                    HandleResponseCode.onHandle(MyApplication.getContext(), status, false);
+                                }
+                            }
+                        });*/
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -80,25 +135,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             tv_GPS_item = (TextView) itemView.findViewById(R.id.tv_GPS_item);
             loc_item = (TextView) itemView.findViewById(R.id.loc_item);
 
-            InfoLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MyApplication.getContext(), "1", Toast.LENGTH_SHORT).show();
-                }
-            });
 
-            iv_FaceImage_item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MyApplication.getContext(), "3", Toast.LENGTH_SHORT).show();
-                }
-            });
-            ib_SentMsg.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MyApplication.getContext(), "2", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 }

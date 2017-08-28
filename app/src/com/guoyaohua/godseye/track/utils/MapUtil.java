@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -23,8 +24,9 @@ import com.baidu.mapapi.utils.CoordinateConverter;
 import com.baidu.trace.model.CoordType;
 import com.baidu.trace.model.SortType;
 import com.baidu.trace.model.TraceLocation;
+import com.guoyaohua.godseye.R;
+import com.guoyaohua.godseye.RealLocationActivity;
 import com.guoyaohua.godseye.application.MyApplication;
-import com.guoyaohua.godseye.track.TrackApplication;
 import com.guoyaohua.godseye.track.model.CurrentLocation;
 
 import java.util.List;
@@ -45,6 +47,8 @@ public class MapUtil {
     public Overlay polylineOverlay = null;
     private MapStatus mapStatus = null;
     private Marker mMoveMarker = null;
+    private Marker my_maker = null;
+    private Marker other_maker = null;
 
     private MapUtil() {
     }
@@ -123,6 +127,14 @@ public class MapUtil {
             mMoveMarker.remove();
             mMoveMarker = null;
         }
+        if (null != my_maker) {
+            my_maker.remove();
+            my_maker = null;
+        }
+        if (null != other_maker) {
+            other_maker.remove();
+            other_maker = null;
+        }
         if (null != polylineOverlay) {
             polylineOverlay.remove();
             polylineOverlay = null;
@@ -174,8 +186,8 @@ public class MapUtil {
         if (null != baiduMap.getProjection()) {
             Point screenPoint = baiduMap.getProjection().toScreenLocation(currentPoint);
             // 点在屏幕上的坐标超过限制范围，则重新聚焦底图
-            if (screenPoint.y < 200 || screenPoint.y > TrackApplication.screenHeight - 500
-                    || screenPoint.x < 200 || screenPoint.x > TrackApplication.screenWidth - 200
+            if (screenPoint.y < 200 || screenPoint.y > MyApplication.screenHeight - 500
+                    || screenPoint.x < 200 || screenPoint.x > MyApplication.screenWidth - 200
                     || null == mapStatus) {
                 animateMapStatus(currentPoint, 15.0f);
             }
@@ -331,5 +343,36 @@ public class MapUtil {
         setMapStatus(mapCenter, mapZoom);
     }
 
+    public void updatePosition(LatLng currentLatLng, int whose) {
+        if (whose == RealLocationActivity.OTHER_POSITION) {
+            if (my_maker == null) {
+                //构建Marker图标
+                BitmapDescriptor bitmap = BitmapDescriptorFactory
+                        .fromResource(R.mipmap.icon_gcoding);
+                //构建MarkerOption，用于在地图上添加Marker
+                OverlayOptions option = new MarkerOptions()
+                        .position(currentLatLng)
+                        .icon(bitmap);
+                //在地图上添加Marker，并显示
+                my_maker = (Marker) baiduMap.addOverlay(option);
+            } else {
+                my_maker.setPosition(currentLatLng);
+            }
+        } else if (whose == RealLocationActivity.MY_POSITION) {
+            if (other_maker == null) {
+                //构建Marker图标
+                BitmapDescriptor bitmap = BitmapDescriptorFactory
+                        .fromResource(R.mipmap.icon_geo);
+                //构建MarkerOption，用于在地图上添加Marker
+                OverlayOptions option = new MarkerOptions()
+                        .position(currentLatLng)
+                        .icon(bitmap);
+                //在地图上添加Marker，并显示
+                other_maker = (Marker) baiduMap.addOverlay(option);
+            } else {
+                other_maker.setPosition(currentLatLng);
+            }
+        }
+    }
 }
 
