@@ -7,10 +7,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.PowerManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -30,6 +32,7 @@ import com.baidu.trace.model.PushMessage;
 import com.baidu.trace.model.StatusCodes;
 import com.guoyaohua.godseye.MainActivity;
 import com.guoyaohua.godseye.R;
+import com.guoyaohua.godseye.track.receiver.TrackReceiver;
 import com.guoyaohua.godseye.track.utils.CommonUtil;
 import com.guoyaohua.godseye.track.utils.Constants;
 import com.guoyaohua.godseye.track.utils.NetUtil;
@@ -41,6 +44,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.callback.GetUserInfoCallback;
 import cn.jpush.im.android.api.model.UserInfo;
+
+import static com.guoyaohua.godseye.utils.CommonUtil.isServiceRunning;
 
 
 /**
@@ -65,7 +70,11 @@ public class MyApplication extends Application {
     /**
      * 轨迹服务
      */
-    public Trace mTrace = null;
+    public static Trace mTrace = null;
+    /**
+     * 轨迹服务监听器
+     */
+    public static OnTraceListener traceListener = null;
     /**
      * Entity标识
      */
@@ -79,25 +88,27 @@ public class MyApplication extends Application {
      * 采集是否开启标识
      */
     public boolean isGatherStarted = false;
-
     public SharedPreferences trackConf = null;
     /**
      * 打包周期,可以把这些常量存到数据库或者sharepreferance里
      */
     public int packInterval = Constants.DEFAULT_PACK_INTERVAL;
+    /**
+     * 生命服务
+     */
+    LifeService lifeService;
+    private PowerManager powerManager = null;
+    private PowerManager.WakeLock wakeLock = null;
+    private TrackReceiver trackReceiver = null;
     private AtomicInteger mSequenceGenerator = new AtomicInteger();
     private LocRequest locRequest = null;
     //服务开启常驻通知条
     private Notification notification = null;
-    private NotificationManager notificationManager = null;
     /**
      * 地图工具
      */
 //    private MapUtil mapUtil = null;
-    /**
-     * 轨迹服务监听器
-     */
-    private OnTraceListener traceListener = null;
+    private NotificationManager notificationManager = null;
     /**
      * 轨迹监听器(用于接收纠偏后实时位置回调)
      */
@@ -108,7 +119,7 @@ public class MyApplication extends Application {
     private OnEntityListener entityListener = null;
     private int notifyId = 0;//记录是第几条通知
 
-    //    、*******************************************************************
+    //   *******************************************************************
     public static Context getContext() {
         return context;
     }
@@ -126,13 +137,14 @@ public class MyApplication extends Application {
         }
         //地图配置用到的
         trackConf = getSharedPreferences("track_conf", MODE_PRIVATE);
-
+        powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         SDKInitializer.initialize(context);
         initNotification();
 
         getScreenSize();
         initListener();
         initUserInfosList();
+        registerReceiver();//注册电源锁
     }
 
     /**
@@ -145,6 +157,7 @@ public class MyApplication extends Application {
         entityNames = new ArrayList<String>();
         entityNames.add("guoyaohua");
         entityNames.add("xiaozhang");
+        entityNames.add("test");
         entityNames.add("xiaohehe");
 
 
@@ -164,13 +177,36 @@ public class MyApplication extends Application {
 
     }
 
-
+    /**
+     * 启动百度服务
+     */
     public void startBaiduService() {
-        mClient = new LBSTraceClient(context);
-        mTrace = new Trace(serviceId, entityName);
-        mTrace.setNotification(notification);
-        locRequest = new LocRequest(serviceId);
+        if (mClient == null) {
+            mClient = new LBSTraceClient(context);
+        }
+        if (mTrace == null) {
+            mTrace = new Trace(serviceId, entityName);
+            mTrace.setNotification(notification);
+        }
+        if (locRequest == null) {
+            locRequest = new LocRequest(serviceId);
+        }
+
         mClient.startTrace(mTrace, traceListener);
+        if (lifeService == null) {
+            lifeService = new LifeService();
+        }
+//        LifeService lifeService = new LifeService(mTrace,traceListener);
+        if (!isServiceRunning(this, lifeService.getClass().getName())) {//判断服务是否运行
+            //启动生命服务
+            Log.i("isServiceRunning", "Life服务未运行");
+//            lifeService.getClass().getName();
+            Intent intent = new Intent(this, lifeService.getClass());
+
+            startService(intent);
+        } else {
+            Log.i("isServiceRunning", "Life服务已运行");
+        }
     }
 
 
@@ -215,6 +251,41 @@ public class MyApplication extends Application {
 
         notification = builder.build(); // 获取构建好的Notification
 //        notification.defaults = Notification.DEFAULT_SOUND; //设置为默认的声音
+    }
+
+    /**
+     * 注册广播（电源锁、GPS状态）
+     */
+    private void registerReceiver() {
+        if (isRegisterReceiver) {
+            return;
+        }
+
+        if (null == wakeLock) {
+            wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "track upload");
+        }
+        if (null == trackReceiver) {
+            trackReceiver = new TrackReceiver(wakeLock);
+        }
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_USER_PRESENT);
+        filter.addAction(StatusCodes.GPS_STATUS_ACTION);
+        registerReceiver(trackReceiver, filter);
+        isRegisterReceiver = true;
+
+    }
+
+    private void unregisterPowerReceiver() {
+        if (!isRegisterReceiver) {
+            return;
+        }
+        if (null != trackReceiver) {
+            unregisterReceiver(trackReceiver);
+        }
+        isRegisterReceiver = false;
     }
 
     /**

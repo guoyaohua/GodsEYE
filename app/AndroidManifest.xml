@@ -157,7 +157,7 @@
         <activity
             android:name=".DemoActivity"
             android:label="@string/app_name"
-            android:theme="@style/noTitle"></activity>
+            android:theme="@style/noTitle" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -165,7 +165,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SignInActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -202,6 +202,11 @@
         <activity
             android:name=".RealLocationActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <service
+            android:name=".application.LifeService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

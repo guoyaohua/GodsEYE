@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MyApplication myApplication = (MyApplication) getApplication();
         if (MyApplication.myInfo != null) {
             myApplication.entityName = MyApplication.myInfo.getUserName();
-        } else {
+        } else {//如果没获取到登陆用户，则提示重新登陆
 
         }
         myApplication.startBaiduService();

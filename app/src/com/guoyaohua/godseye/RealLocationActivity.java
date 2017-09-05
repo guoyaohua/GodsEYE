@@ -116,7 +116,13 @@ public class RealLocationActivity extends AppCompatActivity implements View.OnCl
                 startActivity(intent);
                 break;
             case R.id.bt_showME:
-
+                if (showME) {
+                    showME = false;
+                    bt_showME.setText("不显示我");
+                } else if (!showME) {
+                    showME = true;
+                    bt_showME.setText("显示我");
+                }
                 break;
             case R.id.bt_findTA:
 
@@ -127,6 +133,7 @@ public class RealLocationActivity extends AppCompatActivity implements View.OnCl
                     intent.putExtra(TARGET_ID, userName);
                     intent.putExtra(TARGET_APP_KEY, JMessageClient.getMyInfo().getAppKey());
                     intent.setClass(this, ChatActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     MyApplication.getContext().startActivity(intent);
                 }
                 break;
@@ -308,6 +315,8 @@ public class RealLocationActivity extends AppCompatActivity implements View.OnCl
             if (showME) {
                 MyApplication myApplication = (MyApplication) getApplication();
                 myApplication.getCurrentLocation(entityListener, trackListener);
+            } else {
+                mapUtil.clearMyPositionMarker();
             }
             realTimeHandler.postDelayed(this, interval * 1000);
         }

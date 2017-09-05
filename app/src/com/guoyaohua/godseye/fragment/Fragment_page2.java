@@ -143,9 +143,9 @@ public class Fragment_page2 extends Fragment {
                                 String sDateTime = sdf.format(dt);  //得到精确到秒的表示：08/31/2006 21:08:00
 //                                System.out.println(sDateTime);
                                 if (System.currentTimeMillis() / 1000 - locTime > 5 * 60) {
-                                    MyApplication.userInfos.get(i).setNotename("离线");
+                                    MyApplication.userInfos.get(j).setNotename("离线");
                                 } else {
-                                    MyApplication.userInfos.get(i).setNotename("在线");
+                                    MyApplication.userInfos.get(j).setNotename("在线");
                                 }
 //                                Log.i("time",entityInfos.get(i).getEntityName().toString()+"定位时间："+locTime+"系统时间："+(System.currentTimeMillis() / 1000));
                                 MyApplication.userInfos.get(j).setNoteText("时间：" + sDateTime);

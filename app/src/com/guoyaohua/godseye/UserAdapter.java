@@ -58,7 +58,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.InfoLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MyApplication.getContext(), "1", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                intent.setClass(MyApplication.getContext(), RealLocationActivity.class);
+                intent.putExtra("userName", userInfos.get(position).getUserName().toString());
+                intent.putExtra("nickName", userInfos.get(position).getNickname().toString());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                MyApplication.getContext().startActivity(intent);
             }
         });
 
@@ -69,6 +74,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                 intent.setClass(MyApplication.getContext(), RealLocationActivity.class);
                 intent.putExtra("userName", userInfos.get(position).getUserName().toString());
                 intent.putExtra("nickName", userInfos.get(position).getNickname().toString());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 MyApplication.getContext().startActivity(intent);
             }
         });
@@ -82,6 +88,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
                     intent.putExtra(TARGET_APP_KEY, JMessageClient.getMyInfo().getAppKey());
 
                     intent.setClass(MyApplication.getContext(), ChatActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     MyApplication.getContext().startActivity(intent);
                 } else {
                     Toast.makeText(MyApplication.getContext(), "用户掉线，请重新登陆", Toast.LENGTH_SHORT).show();

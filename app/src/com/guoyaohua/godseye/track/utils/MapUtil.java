@@ -47,8 +47,8 @@ public class MapUtil {
     public Overlay polylineOverlay = null;
     private MapStatus mapStatus = null;
     private Marker mMoveMarker = null;
-    private Marker my_maker = null;
-    private Marker other_maker = null;
+    private Marker my_marker = null;
+    private Marker other_marker = null;
 
     private MapUtil() {
     }
@@ -127,13 +127,13 @@ public class MapUtil {
             mMoveMarker.remove();
             mMoveMarker = null;
         }
-        if (null != my_maker) {
-            my_maker.remove();
-            my_maker = null;
+        if (null != my_marker) {
+            my_marker.remove();
+            my_marker = null;
         }
-        if (null != other_maker) {
-            other_maker.remove();
-            other_maker = null;
+        if (null != other_marker) {
+            other_marker.remove();
+            other_marker = null;
         }
         if (null != polylineOverlay) {
             polylineOverlay.remove();
@@ -343,9 +343,16 @@ public class MapUtil {
         setMapStatus(mapCenter, mapZoom);
     }
 
+    public void clearMyPositionMarker() {
+        if (my_marker != null) {
+            my_marker.remove();
+            my_marker = null;
+        }
+    }
+
     public void updatePosition(LatLng currentLatLng, int whose) {
-        if (whose == RealLocationActivity.OTHER_POSITION) {
-            if (my_maker == null) {
+        if (whose == RealLocationActivity.MY_POSITION) {
+            if (my_marker == null) {
                 //构建Marker图标
                 BitmapDescriptor bitmap = BitmapDescriptorFactory
                         .fromResource(R.mipmap.icon_gcoding);
@@ -354,12 +361,12 @@ public class MapUtil {
                         .position(currentLatLng)
                         .icon(bitmap);
                 //在地图上添加Marker，并显示
-                my_maker = (Marker) baiduMap.addOverlay(option);
+                my_marker = (Marker) baiduMap.addOverlay(option);
             } else {
-                my_maker.setPosition(currentLatLng);
+                my_marker.setPosition(currentLatLng);
             }
-        } else if (whose == RealLocationActivity.MY_POSITION) {
-            if (other_maker == null) {
+        } else if (whose == RealLocationActivity.OTHER_POSITION) {
+            if (other_marker == null) {
                 //构建Marker图标
                 BitmapDescriptor bitmap = BitmapDescriptorFactory
                         .fromResource(R.mipmap.icon_geo);
@@ -368,9 +375,9 @@ public class MapUtil {
                         .position(currentLatLng)
                         .icon(bitmap);
                 //在地图上添加Marker，并显示
-                other_maker = (Marker) baiduMap.addOverlay(option);
+                other_marker = (Marker) baiduMap.addOverlay(option);
             } else {
-                other_maker.setPosition(currentLatLng);
+                other_marker.setPosition(currentLatLng);
             }
         }
     }
